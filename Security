@@ -1,31 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-<title>MD Ibrahim Kholil</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{
-font-family: Arial;
-background:#111;
-color:white;
-text-align:center;
-padding:40px;
-}
-button{
-padding:10px 20px;
-background:lime;
-border:none;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evu Security - Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: white; text-align: center; padding: 20px; margin: 0; }
+        .container { max-width: 400px; margin: 50px auto; background: #1a1a1a; padding: 30px; border-radius: 15px; border: 1px solid #333; box-shadow: 0 0 20px rgba(0, 255, 0, 0.1); }
+        h1 { color: lime; font-size: 24px; margin-bottom: 10px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #444; background: #222; color: white; box-sizing: border-box; outline: none; }
+        input:focus { border-color: lime; }
+        button { width: 100%; padding: 12px; background: lime; border: none; font-weight: bold; cursor: pointer; margin-top: 15px; border-radius: 8px; transition: 0.3s; color: black; }
+        button:hover { background: #00cc00; transform: translateY(-2px); }
+        .link { color: #888; cursor: pointer; display: block; margin-top: 15px; font-size: 13px; text-decoration: none; }
+        .link:hover { color: lime; }
+        
+        /* Dashboard Style */
+        #dashboard { display: none; }
+        .user-info { background: #222; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid lime; text-align: left; }
+        .logout-btn { background: #ff4444; color: white; margin-top: 20px; }
+        .logout-btn:hover { background: #cc0000; }
+    </style>
 </head>
 <body>
 
-<h1>MD Ibrahim Kholil</h1>
-<p>Future Cyber Security Expert 🔥</p>
+    <div class="container" id="auth-section">
+        <h1>Evu Security 🔥</h1>
+        <p id="sub-title">Future Cyber Security Expert</p>
+        <hr style="border: 0.5px solid #333; margin: 20px 0;">
+        
+        <h2 id="form-title">রেজিস্ট্রেশন</h2>
+        <input type="email" id="email" placeholder="ইমেইল অ্যাড্রেস">
+        <input type="password" id="password" placeholder="পাসওয়ার্ড (৬+ ডিজিট)">
+        <button id="main-btn" onclick="handleAuth()">সাইন আপ করুন</button>
+        
+        <p class="link" onclick="toggleMode()" id="toggle-text">ইতিমধ্যেই অ্যাকাউন্ট আছে? লগইন করুন</p>
+        <p class="link" id="forgot-pw" style="display:none;" onclick="handleReset()">পাসওয়ার্ড ভুলে গেছেন?</p>
+    </div>
 
-<button onclick="alert('Welcome to my website!')">
-Click Me
-</button>
+    <div class="container" id="dashboard">
+        <h1>স্বাগতম ড্যাশবোর্ডে! ✅</h1>
+        <div class="user-info">
+            <p><strong>ইমেইল:</strong> <span id="user-email"></span></p>
+            <p><strong>স্ট্যাটাস:</strong> ভেরিফাইড ইউজার 🛡️</p>
+        </div>
+        <p style="font-size: 14px; color: #aaa; margin-top: 20px;">আপনি এখন আমাদের সিকিউর ডাটা অ্যাক্সেস করতে পারছেন।</p>
+        <button class="logout-btn" onclick="handleLogout()">লগ আউট করুন</button>
+    </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // আপনার Firebase কনফিগারেশন
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGEgnFT8a-Dbik2M6JqpP88-PwLWfnecE",
+            authDomain: "evu-8921a.firebaseapp.com",
+            projectId: "evu-8921a",
+            storageBucket: "evu-8921a.firebasestorage.app",
+            messagingSenderId: "777966469701",
+            appId: "1:777966469701:web:c7bf8614a194f5cddf592c",
+            measurementId: "G-TF11ZWQV4L"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        let isLoginMode = false;
+
+        // চেক করা ইউজার কি লগইন করা আছে কিনা
+        onAuthStateChanged(auth, (user) => {
+            if (user && user.emailVerified) {
+                document.getElementById('auth-section').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('user-email').innerText = user.email;
+            } else {
+                document.getElementById('auth-section').style.display = 'block';
+                document.getElementById('dashboard').style.display = 'none';
+            }
+        });
+
+        window.toggleMode = function() {
+            isLoginMode = !isLoginMode;
+            document.getElementById('form-title').innerText = isLoginMode ? "লগইন" : "রেজিস্ট্রেশন";
+            document.getElementById('main-btn').innerText = isLoginMode ? "লগইন করুন" : "সাইন আপ করুন";
+            document.getElementById('toggle-text').innerText = isLoginMode ? "নতুন অ্যাকাউন্ট তৈরি করুন" : "ইতিমধ্যেই অ্যাকাউন্ট আছে? লগইন করুন";
+            document.getElementById('forgot-pw').style.display = isLoginMode ? "block" : "none";
+        }
+
+        window.handleAuth = async function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (!email || password.length < 6) return alert("সঠিক ইমেইল এবং কমপক্ষে ৬ ডিজিটের পাসওয়ার্ড দিন!");
+
+            try {
+                if (isLoginMode) {
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    if (!userCredential.user.emailVerified) {
+                        alert("আগে আপনার ইমেইল ভেরিফাই করুন! আপনার ইনবক্স চেক করুন।");
+                        await signOut(auth);
+                    }
+                } else {
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    await sendEmailVerification(auth.currentUser);
+                    alert("রেজিস্ট্রেশন সফল! আপনার ইমেইলে একটি ভেরিফিকেশন লিঙ্ক পাঠানো হয়েছে।");
+                    await signOut(auth);
+                    toggleMode();
+                }
+            } catch (error) {
+                alert("ত্রুটি: " + error.message);
+            }
+        }
+
+        window.handleReset = async function() {
+            const email = document.getElementById('email').value;
+            if (!email) return alert("পাসওয়ার্ড রিসেট করতে আগে ইমেইল দিন।");
+            try {
+                await sendPasswordResetEmail(auth, email);
+                alert("পাসওয়ার্ড রিসেট লিঙ্ক আপনার ইমেইলে পাঠানো হয়েছে।");
+            } catch (error) { alert("ত্রুটি: " + error.message); }
+        }
+
+        window.handleLogout = async function() {
+            await signOut(auth);
+            alert("লগ আউট সফল হয়েছে।");
+        }
+    </script>
 </body>
 </html>
