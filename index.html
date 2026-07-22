@@ -6,21 +6,19 @@
     <title>Md. Ibrahim - Personal Portfolio</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons for Social Media -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Variables */
         :root {
             --bg-color: #0f172a;
             --card-bg: #1e293b;
             --primary-color: #38bdf8;
             --text-color: #f8fafc;
             --text-muted: #94a3b8;
-            --accent-glow: rgba(56, 189, 248, 0.2);
+            --accent-glow: rgba(56, 189, 248, 0.25);
         }
 
-        /* Reset & General Styles */
         * {
             margin: 0;
             padding: 0;
@@ -40,7 +38,6 @@
             color: inherit;
         }
 
-        /* Container */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -53,7 +50,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(15, 23, 42, 0.9);
+            background-color: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -67,9 +64,10 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--primary-color);
+            letter-spacing: 1px;
         }
 
         .nav-links {
@@ -85,8 +83,8 @@
 
         /* Hero Section */
         #hero {
-            padding-top: 140px;
-            padding-bottom: 80px;
+            padding-top: 130px;
+            padding-bottom: 60px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -96,11 +94,11 @@
 
         .hero-text {
             flex: 1;
-            min-width: 300px;
+            min-width: 280px;
         }
 
         .hero-text h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             margin-bottom: 10px;
             line-height: 1.2;
         }
@@ -111,13 +109,13 @@
 
         .hero-text p {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin-bottom: 25px;
         }
 
         .social-buttons {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
@@ -131,11 +129,6 @@
             transition: 0.3s;
         }
 
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: #0f172a;
-        }
-
         .btn-facebook {
             background-color: #1877f2;
             color: #fff;
@@ -146,33 +139,49 @@
             color: #fff;
         }
 
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #0f172a;
+        }
+
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px var(--accent-glow);
         }
 
+        /* Profile Image Container */
         .hero-img {
             flex: 1;
             display: flex;
             justify-content: center;
-            min-width: 280px;
+            min-width: 260px;
         }
 
-        .hero-img img {
-            width: 260px;
-            height: 260px;
+        .img-wrapper {
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
-            object-fit: cover;
-            object-position: top;
             border: 4px solid var(--primary-color);
             box-shadow: 0 0 25px var(--accent-glow);
+            overflow: hidden;
+            background-color: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
         }
 
         /* Section Title */
         .section-title {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
+            font-size: 1.8rem;
+            margin-bottom: 35px;
             position: relative;
         }
 
@@ -186,15 +195,14 @@
             border-radius: 2px;
         }
 
-        /* Section General Styling */
         section {
-            padding: 60px 0;
+            padding: 50px 0;
         }
 
         /* About Section */
         .about-content {
             background-color: var(--card-bg);
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
             color: var(--text-muted);
         }
@@ -202,13 +210,13 @@
         /* Skills Section */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
         }
 
         .skill-card {
             background-color: var(--card-bg);
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
             text-align: center;
             font-weight: 600;
@@ -218,37 +226,34 @@
 
         .skill-card:hover {
             border-color: var(--primary-color);
-            transform: translateY(-5px);
+            transform: translateY(-4px);
         }
 
         /* Projects Section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
         }
 
         .project-card {
             background-color: var(--card-bg);
             border-radius: 10px;
-            overflow: hidden;
+            padding: 20px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: 0.3s;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
         }
 
-        .project-info {
-            padding: 20px;
-        }
-
-        .project-info h3 {
+        .project-card h3 {
             margin-bottom: 10px;
+            color: #fff;
         }
 
-        .project-info p {
+        .project-card p {
             color: var(--text-muted);
             font-size: 0.95rem;
             margin-bottom: 15px;
@@ -261,26 +266,27 @@
 
         /* Contact Section */
         .contact-form {
-            max-width: 600px;
+            max-width: 550px;
             margin: 0 auto;
             background-color: var(--card-bg);
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border-radius: 6px;
             border: 1px solid #334155;
             background-color: #0f172a;
@@ -293,20 +299,19 @@
             border-color: var(--primary-color);
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 20px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             #hero {
                 text-align: center;
                 flex-direction: column-reverse;
+                padding-top: 100px;
             }
             .social-buttons {
                 justify-content: center;
@@ -347,9 +352,12 @@
                 </a>
             </div>
         </div>
+
         <div class="hero-img">
-            <!-- নির্দিষ্ট ছবি ব্যবহার করা হয়েছে -->
-            <img src="4416_2.png" alt="Md. Ibrahim">
+            <div class="img-wrapper">
+                <!-- GitHub-এ যে নামে আপনার ছবিটি আপলোড করবেন, src-এ ঠিক সেই নামটি দিন -->
+                <img src="profile.png" alt="">
+            </div>
         </div>
     </section>
 
@@ -377,23 +385,17 @@
     <section class="container" id="projects">
         <h2 class="section-title">আমার প্রজেক্টস</h2>
         <div class="projects-grid">
-            
             <div class="project-card">
-                <div class="project-info">
-                    <h3>প্রজেক্ট ১</h3>
-                    <p>আপনার প্রথম প্রজেক্টের সংক্ষিপ্ত বিবরণ এখানে দিন।</p>
-                    <a href="#" class="project-link">দেখুন &rarr;</a>
-                </div>
+                <h3>প্রজেক্ট ১</h3>
+                <p>আপনার প্রথম প্রজেক্টের সংক্ষিপ্ত বিবরণ এখানে দিন।</p>
+                <a href="#" class="project-link">দেখুন &rarr;</a>
             </div>
 
             <div class="project-card">
-                <div class="project-info">
-                    <h3>প্রজেক্ট ২</h3>
-                    <p>আপনার দ্বিতীয় প্রজেক্টের সংক্ষিপ্ত বিবরণ এখানে দিন।</p>
-                    <a href="#" class="project-link">দেখুন &rarr;</a>
-                </div>
+                <h3>প্রজেক্ট ২</h3>
+                <p>আপনার দ্বিতীয় প্রজেক্টের সংক্ষিপ্ত বিবরণ এখানে দিন।</p>
+                <a href="#" class="project-link">দেখুন &rarr;</a>
             </div>
-
         </div>
     </section>
 
@@ -426,7 +428,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
         document.getElementById('myContactForm').addEventListener('submit', function(e) {
             e.preventDefault();
