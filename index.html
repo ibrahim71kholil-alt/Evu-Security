@@ -3,129 +3,436 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evu Security - Dashboard</title>
+    <title>Md. Ibrahim - Personal Portfolio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons for Social Media -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: white; text-align: center; padding: 20px; margin: 0; }
-        .container { max-width: 400px; margin: 50px auto; background: #1a1a1a; padding: 30px; border-radius: 15px; border: 1px solid #333; box-shadow: 0 0 20px rgba(0, 255, 0, 0.1); }
-        h1 { color: lime; font-size: 24px; margin-bottom: 10px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #444; background: #222; color: white; box-sizing: border-box; outline: none; }
-        input:focus { border-color: lime; }
-        button { width: 100%; padding: 12px; background: lime; border: none; font-weight: bold; cursor: pointer; margin-top: 15px; border-radius: 8px; transition: 0.3s; color: black; }
-        button:hover { background: #00cc00; transform: translateY(-2px); }
-        .link { color: #888; cursor: pointer; display: block; margin-top: 15px; font-size: 13px; text-decoration: none; }
-        .link:hover { color: lime; }
-        
-        /* Dashboard Style */
-        #dashboard { display: none; }
-        .user-info { background: #222; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid lime; text-align: left; }
-        .logout-btn { background: #ff4444; color: white; margin-top: 20px; }
-        .logout-btn:hover { background: #cc0000; }
+        /* Variables */
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --primary-color: #38bdf8;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-glow: rgba(56, 189, 248, 0.2);
+        }
+
+        /* Reset & General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        #hero {
+            padding-top: 140px;
+            padding-bottom: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #0f172a;
+        }
+
+        .btn-facebook {
+            background-color: #1877f2;
+            color: #fff;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: #fff;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--accent-glow);
+        }
+
+        .hero-img {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 280px;
+        }
+
+        .hero-img img {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Section General Styling */
+        section {
+            padding: 60px 0;
+        }
+
+        /* About Section */
+        .about-content {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .skill-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .project-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .project-link {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            background-color: #0f172a;
+            color: #fff;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            #hero {
+                text-align: center;
+                flex-direction: column-reverse;
+            }
+            .social-buttons {
+                justify-content: center;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="container" id="auth-section">
-        <h1>Evu Security 🔥</h1>
-        <p id="sub-title">Future Cyber Security Expert</p>
-        <hr style="border: 0.5px solid #333; margin: 20px 0;">
-        
-        <h2 id="form-title">রেজিস্ট্রেশন</h2>
-        <input type="email" id="email" placeholder="ইমেইল অ্যাড্রেস">
-        <input type="password" id="password" placeholder="পাসওয়ার্ড (৬+ ডিজিট)">
-        <button id="main-btn" onclick="handleAuth()">সাইন আপ করুন</button>
-        
-        <p class="link" onclick="toggleMode()" id="toggle-text">ইতিমধ্যেই অ্যাকাউন্ট আছে? লগইন করুন</p>
-        <p class="link" id="forgot-pw" style="display:none;" onclick="handleReset()">পাসওয়ার্ড ভুলে গেছেন?</p>
-    </div>
-
-    <div class="container" id="dashboard">
-        <h1>স্বাগতম ড্যাশবোর্ডে! ✅</h1>
-        <div class="user-info">
-            <p><strong>ইমেইল:</strong> <span id="user-email"></span></p>
-            <p><strong>স্ট্যাটাস:</strong> ভেরিফাইড ইউজার 🛡️</p>
+    <!-- Header & Nav -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">Md. Ibrahim</div>
+            <ul class="nav-links">
+                <li><a href="#about">আমার সম্পর্কে</a></li>
+                <li><a href="#skills">স্কিলস</a></li>
+                <li><a href="#projects">প্রজেক্ট</a></li>
+                <li><a href="#contact">যোগাযোগ</a></li>
+            </ul>
         </div>
-        <p style="font-size: 14px; color: #aaa; margin-top: 20px;">আপনি এখন আমাদের সিকিউর ডাটা অ্যাক্সেস করতে পারছেন।</p>
-        <button class="logout-btn" onclick="handleLogout()">লগ আউট করুন</button>
-    </div>
+    </nav>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    <!-- Hero Section -->
+    <section class="container" id="hero">
+        <div class="hero-text">
+            <h1>হ্যালো, আমি <br><span>Md. Ibrahim</span></h1>
+            <p>আমি নতুন প্রযুক্তি নিয়ে কাজ করতে ও শিখতে ভালোবাসি। নিচে আমার সোশ্যাল মিডিয়া এবং যোগাযোগ করার মাধ্যম দেওয়া হলো।</p>
+            
+            <div class="social-buttons">
+                <a href="https://www.facebook.com/share/19JuELAxP3/" target="_blank" class="btn btn-facebook">
+                    <i class="fab fa-facebook-f"></i> ফেসবুক
+                </a>
+                <a href="https://whatsapp.com/dl/" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপ
+                </a>
+            </div>
+        </div>
+        <div class="hero-img">
+            <!-- আপনার ছবিকে 'profile.jpg' নামে এই ফোল্ডারে সেভ করে রাখুন -->
+            <img src="profile.jpg" alt="Md. Ibrahim">
+        </div>
+    </section>
 
-        // আপনার Firebase কনফিগারেশন
-        const firebaseConfig = {
-            apiKey: "AIzaSyCGEgnFT8a-Dbik2M6JqpP88-PwLWfnecE",
-            authDomain: "evu-8921a.firebaseapp.com",
-            projectId: "evu-8921a",
-            storageBucket: "evu-8921a.firebasestorage.app",
-            messagingSenderId: "777966469701",
-            appId: "1:777966469701:web:c7bf8614a194f5cddf592c",
-            measurementId: "G-TF11ZWQV4L"
-        };
+    <!-- About Section -->
+    <section class="container" id="about">
+        <h2 class="section-title">আমার সম্পর্কে</h2>
+        <div class="about-content">
+            <p>আমি Md. Ibrahim। প্রযুক্তি এবং ওয়েবসাইট ডেভেলপমেন্টের প্রতি আমার গভীর আগ্রহ রয়েছে। আমি নিত্যনতুন স্কিল অর্জন করতে এবং বিভিন্ন প্রজেক্ট তৈরি করতে পছন্দ করি।</p>
+        </div>
+    </section>
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+    <!-- Skills Section -->
+    <section class="container" id="skills">
+        <h2 class="section-title">আমার দক্ষতা</h2>
+        <div class="skills-grid">
+            <div class="skill-card">HTML5</div>
+            <div class="skill-card">CSS3</div>
+            <div class="skill-card">JavaScript</div>
+            <div class="skill-card">Cyber Security</div>
+            <div class="skill-card">Git & GitHub</div>
+        </div>
+    </section>
 
-        let isLoginMode = false;
+    <!-- Projects Section -->
+    <section class="container" id="projects">
+        <h2 class="section-title">আমার প্রজেক্টস</h2>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <div class="project-info">
+                    <h3>প্রজেক্ট ১</h3>
+                    <p>আপনার প্রথম প্রজেক্টের সংক্ষিপ্ত বিবরণ এখানে দিন।</p>
+                    <a href="#" class="project-link">দেখুন &rarr;</a>
+                </div>
+            </div>
 
-        // চেক করা ইউজার কি লগইন করা আছে কিনা
-        onAuthStateChanged(auth, (user) => {
-            if (user && user.emailVerified) {
-                document.getElementById('auth-section').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'block';
-                document.getElementById('user-email').innerText = user.email;
-            } else {
-                document.getElementById('auth-section').style.display = 'block';
-                document.getElementById('dashboard').style.display = 'none';
-            }
+            <div class="project-card">
+                <div class="project-info">
+                    <h3>প্রজেক্ট ২</h3>
+                    <p>আপনার দ্বিতীয় প্রজেক্টের সংক্ষিপ্ত বিবরণ এখানে দিন।</p>
+                    <a href="#" class="project-link">দেখুন &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="container" id="contact">
+        <h2 class="section-title">মেসেজ পাঠান</h2>
+        <div class="contact-form">
+            <form id="myContactForm">
+                <div class="form-group">
+                    <label>আপনার নাম</label>
+                    <input type="text" placeholder="আপনার নাম লিখুন" required>
+                </div>
+                <div class="form-group">
+                    <label>ইমেইল</label>
+                    <input type="email" placeholder="আপনার ইমেইল দিন" required>
+                </div>
+                <div class="form-group">
+                    <label>মেসেজ</label>
+                    <textarea rows="4" placeholder="আপনার বার্তাটি লিখুন..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">মেসেজ পাঠান</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; ২০২৬ Md. Ibrahim। সর্বস্বত্ব সংরক্ষিত।</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.getElementById('myContactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('ধন্যবাদ! আপনার বার্তাটি পাঠানো হয়েছে।');
+            this.reset();
         });
-
-        window.toggleMode = function() {
-            isLoginMode = !isLoginMode;
-            document.getElementById('form-title').innerText = isLoginMode ? "লগইন" : "রেজিস্ট্রেশন";
-            document.getElementById('main-btn').innerText = isLoginMode ? "লগইন করুন" : "সাইন আপ করুন";
-            document.getElementById('toggle-text').innerText = isLoginMode ? "নতুন অ্যাকাউন্ট তৈরি করুন" : "ইতিমধ্যেই অ্যাকাউন্ট আছে? লগইন করুন";
-            document.getElementById('forgot-pw').style.display = isLoginMode ? "block" : "none";
-        }
-
-        window.handleAuth = async function() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            if (!email || password.length < 6) return alert("সঠিক ইমেইল এবং কমপক্ষে ৬ ডিজিটের পাসওয়ার্ড দিন!");
-
-            try {
-                if (isLoginMode) {
-                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                    if (!userCredential.user.emailVerified) {
-                        alert("আগে আপনার ইমেইল ভেরিফাই করুন! আপনার ইনবক্স চেক করুন।");
-                        await signOut(auth);
-                    }
-                } else {
-                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                    await sendEmailVerification(auth.currentUser);
-                    alert("রেজিস্ট্রেশন সফল! আপনার ইমেইলে একটি ভেরিফিকেশন লিঙ্ক পাঠানো হয়েছে।");
-                    await signOut(auth);
-                    toggleMode();
-                }
-            } catch (error) {
-                alert("ত্রুটি: " + error.message);
-            }
-        }
-
-        window.handleReset = async function() {
-            const email = document.getElementById('email').value;
-            if (!email) return alert("পাসওয়ার্ড রিসেট করতে আগে ইমেইল দিন।");
-            try {
-                await sendPasswordResetEmail(auth, email);
-                alert("পাসওয়ার্ড রিসেট লিঙ্ক আপনার ইমেইলে পাঠানো হয়েছে।");
-            } catch (error) { alert("ত্রুটি: " + error.message); }
-        }
-
-        window.handleLogout = async function() {
-            await signOut(auth);
-            alert("লগ আউট সফল হয়েছে।");
-        }
     </script>
 </body>
 </html>
